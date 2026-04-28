@@ -307,6 +307,7 @@
       font-weight:700;
     }
     .flow-grid{
+      display:grid;
       grid-template-columns:repeat(6,minmax(0,1fr));
     }
     .step-btn{
@@ -412,7 +413,7 @@
     <section class="card nav">
       <div class="nav-left">
         <h2>Onboarding library</h2>
-        <p>Clinics, Physiotherapy, Prosthesis & Amputations.</p
+        <p>Clinics, Physiotherapy, Prosthesis & Amputations.</p>
       </div>
 
       <div class="nav-buttons">
@@ -445,7 +446,7 @@
 
           <div class="choice-list">
             <div class="mini">
-              <strong>Purpose</strong><r>
+              <strong>Purpose</strong><br>
               Helping you make the decision that will empower your life
             </div>
             <div class="mini">
@@ -997,6 +998,41 @@
       btn.addEventListener("click", () => setView(btn.dataset.viewBtn));
     });
 
+document.getElementById("limbType").addEventListener("change", (e) => {
+  state.limbType = e.target.value;
+  saveState();
+  renderAll();
+});
+
+document.getElementById("ampLevel").addEventListener("change", (e) => {
+  state.amputationLevel = e.target.value;
+  saveState();
+  renderAll();
+});
+
+document.getElementById("continuePathway").addEventListener("click", () => {
+  setView("resources");
+});
+
+document.getElementById("resetPathway").addEventListener("click", () => {
+  state.limbType = "";
+  state.amputationLevel = "";
+  state.lifestyle = "";
+  saveState();
+  renderAll();
+});
+
+document.querySelectorAll("[data-action]").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    openActionModal(e.target.dataset.action);
+  });
+});
+
+document.getElementById("closeModal").addEventListener("click", closeActionModal);
+document.getElementById("closeModal2").addEventListener("click", closeActionModal);
+
+// Initialize on page load
+renderAll();
     document.getElementById("continueGateway").addEventListener("click", () => {
       setView("pathway");
     });
